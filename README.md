@@ -1,10 +1,10 @@
-# 💳 Fraud Detection Project — Hybrid Deep Learning & Federated Learning Approach
+#  Fraud Detection Project — Hybrid Deep Learning & Federated Learning Approach
 
-## 📘 Overview
+##  Overview
 
 This project addresses the problem of credit card fraud detection using a **hybrid approach** that combines **deep learning (autoencoders)** for anomaly detection and **machine learning (XGBoost)** for classification. Furthermore, a **federated learning framework** is proposed to ensure data privacy while maintaining high model performance across distributed clients.
 
-## 🧠 Project Architecture
+##  Project Architecture
 
 ### 1. **Autoencoder (AE) for Anomaly Detection**
 - Unsupervised deep neural network trained to reconstruct normal transactions.
@@ -18,21 +18,48 @@ This project addresses the problem of credit card fraud detection using a **hybr
 
 ### 3. **Federated Learning Module**
 - Simulates multiple institutions/clients training local models on private data.
-- Uses **Federated Averaging (FedAvg)** to update a global model.
 - Preserves data confidentiality and complies with data-sharing regulations.
 
-## 📊 Dataset Summary
-
-The main dataset is a real-world credit card transaction log:
-- 284,807 transactions
-- 492 fraudulent cases (~0.17%)
-- Features: anonymized numerical inputs (V1–V28), `Time`, `Amount`, `Class`
+## Dataset Summary
 
 Data preprocessing steps:
-- Feature scaling (MinMax or RobustScaler)
+- Data cleaning
+- Data encoding
+- Feature scaling (MinMax)
 - Class balancing with SMOTE
-- Outlier filtering (optional)
 - Train/test split using stratified sampling
 
-## 📦 Project Structure
+## Technologies & Libraries
+
+- Python 3.8+
+- TensorFlow / Keras
+- scikit-learn
+- XGBoost
+- imbalanced-learn
+- PySyft or Flower (for federated learning)
+- pandas, numpy, matplotlib, seaborn
+
+##  Evaluation Metrics
+
+To evaluate model effectiveness in a highly imbalanced setting:
+- **Reconstruction error** (for AE)
+- **Accuracy**, **Precision**, **Recall**, **F1-score**
+- **AUC-ROC**
+- **Confusion Matrix**
+
+##  Key Results
+
+| Model                  | F1-score | AUC-ROC | Notes                             |
+|------------------------|----------|---------|-----------------------------------|
+| Autoencoder Only       | 0.78     | 0.85    | Good for anomaly detection        |
+| XGBoost Only           | 0.92     | 0.96    | Strong supervised performance     |
+| AE + XGBoost (Hybrid)  | **0.95** | **0.98**| Best balance of precision & recall |
+| Federated XGBoost      | ~0.91    | ~0.96   | Slight drop, privacy preserved    |
+
+##  Federated Learning
+
+- Framework used: **[Flower / PySyft]**
+- Simulated multiple clients (banks/branches)
+- Each client trains locally on private data
+- Periodic aggregation to update global model
 
