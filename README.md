@@ -1,62 +1,38 @@
-# Analyse de Données et Modélisation - Rapport de Projet
+# 💳 Fraud Detection Project — Hybrid Deep Learning & Federated Learning Approach
 
-## Description
+## 📘 Overview
 
-Ce projet a pour objectif d'étudier différents jeux de données, d’en extraire des caractéristiques pertinentes et d’entraîner plusieurs modèles de classification pour prédire les classes associées. Les étapes comprennent :
+This project addresses the problem of credit card fraud detection using a **hybrid approach** that combines **deep learning (autoencoders)** for anomaly detection and **machine learning (XGBoost)** for classification. Furthermore, a **federated learning framework** is proposed to ensure data privacy while maintaining high model performance across distributed clients.
 
-- L'analyse exploratoire des données.
-- Le prétraitement.
-- La sélection de caractéristiques.
-- L'entraînement de plusieurs modèles.
-- L’évaluation des performances.
+## 🧠 Project Architecture
 
-## Jeux de Données
+### 1. **Autoencoder (AE) for Anomaly Detection**
+- Unsupervised deep neural network trained to reconstruct normal transactions.
+- High reconstruction error indicates potential fraud.
+- Acts as a first-level filter to reduce false positives.
 
-Trois jeux de données ont été analysés :
+### 2. **XGBoost Classifier**
+- Trained on a balanced dataset (after SMOTE/undersampling).
+- Features include raw variables + reconstruction error from AE.
+- Robust to outliers and well-suited to imbalanced data.
 
-1. **Titanic** :
-   - Objectif : prédire la survie des passagers.
-   - Variables clés : classe, sexe, âge, tarif, etc.
-   - Traitement : imputation des valeurs manquantes, encodage des variables catégorielles.
+### 3. **Federated Learning Module**
+- Simulates multiple institutions/clients training local models on private data.
+- Uses **Federated Averaging (FedAvg)** to update a global model.
+- Preserves data confidentiality and complies with data-sharing regulations.
 
-2. **Iris** :
-   - Objectif : classification des espèces d’iris (setosa, versicolor, virginica).
-   - Données bien équilibrées, sans valeurs manquantes.
-   - Traitement minimal requis.
+## 📊 Dataset Summary
 
-3. **Wine Quality** :
-   - Objectif : prédire la qualité du vin (classification binaire : bon vs mauvais).
-   - Traitement : binarisation de la cible, standardisation des variables numériques.
+The main dataset is a real-world credit card transaction log:
+- 284,807 transactions
+- 492 fraudulent cases (~0.17%)
+- Features: anonymized numerical inputs (V1–V28), `Time`, `Amount`, `Class`
 
-## Modèles Entraînés
+Data preprocessing steps:
+- Feature scaling (MinMax or RobustScaler)
+- Class balancing with SMOTE
+- Outlier filtering (optional)
+- Train/test split using stratified sampling
 
-Les modèles suivants ont été entraînés et évalués sur chacun des jeux de données :
-
-- **Logistic Regression**
-- **K-Nearest Neighbors (KNN)**
-- **Decision Tree**
-- **Random Forest**
-- **Support Vector Machine (SVM)**
-- **Naive Bayes**
-
-## Évaluation des Performances
-
-Chaque modèle a été évalué à l'aide de métriques telles que :
-
-- **Accuracy**
-- **Recall**
-- **Precision**
-- **F1-score**
-- **Matrice de confusion**
-
-Les meilleures performances ont été observées avec :
-
-- **Random Forest** sur Titanic et Wine Quality.
-- **SVM** sur Iris.
-
-## Conclusion
-
-Les résultats montrent que la qualité du prétraitement a un impact significatif sur les performances. Des modèles plus complexes comme les forêts aléatoires ont mieux capté la structure des données que les modèles linéaires dans la majorité des cas.
-
-## Structure du Répertoire
+## 📦 Project Structure
 
