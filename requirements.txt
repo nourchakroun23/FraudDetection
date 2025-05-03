@@ -1,5 +1,5 @@
 streamlit==1.22.0
-tensorflow==2.10.0
+tensorflow==2.16.1
 scikit-learn==1.2.0
 xgboost==1.7.3
 shap==0.41.0
